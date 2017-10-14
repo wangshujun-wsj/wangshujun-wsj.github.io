@@ -6,14 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Hexo</title>
+  <title>solr-terms | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="类似京东 天猫的搜索">
+<meta name="keywords" content="solr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="solr-terms">
+<meta property="og:url" content="http://yoursite.com/2017/10/14/solr-terms/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="类似京东 天猫的搜索">
+<meta property="og:image" content="http://yoursite.com/2017/10/14/solr-terms/terms.jpg">
+<meta property="og:updated_time" content="2017-10-14T10:28:40.992Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="solr-terms">
+<meta name="twitter:description" content="类似京东 天猫的搜索">
+<meta name="twitter:image" content="http://yoursite.com/2017/10/14/solr-terms/terms.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -149,16 +156,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-solr-terms" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-solr-terms" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/14/solr-terms/">solr-terms</a>
+    <h1 class="article-title" itemprop="name">
+      solr-terms
     </h1>
   
 
@@ -171,12 +176,32 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>类似京东 天猫的搜索<br><img src="/2017/10/14/solr-terms/terms.jpg" alt="terms效果"><br></p>
-        
-          <a class="article-more-a" href="/2017/10/14/solr-terms/#more">more >></a>
-        
+        <p>类似京东 天猫的搜索<br><img src="/2017/10/14/solr-terms/terms.jpg" alt="terms效果"><br><a id="more"></a><br>solrconfig.xml中配置<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;searchComponent name=<span class="string">"terms"</span> class=<span class="string">"solr.TermsComponent"</span>/&gt;</div><div class="line"></div><div class="line">&lt;!-- A request handler <span class="keyword">for</span> demonstrating the terms component --&gt;</div><div class="line">&lt;requestHandler name=<span class="string">"/terms"</span> class=<span class="string">"solr.SearchHandler"</span> startup=<span class="string">"lazy"</span>&gt;</div><div class="line">   &lt;lst name=<span class="string">"defaults"</span>&gt;</div><div class="line">    &lt;bool name=<span class="string">"terms"</span>&gt;<span class="literal">true</span>&lt;/bool&gt;</div><div class="line">    &lt;bool name=<span class="string">"distrib"</span>&gt;<span class="literal">false</span>&lt;/bool&gt;</div><div class="line">  &lt;/lst&gt;     </div><div class="line">  &lt;arr name=<span class="string">"components"</span>&gt;</div><div class="line">    &lt;str&gt;terms&lt;/str&gt;</div><div class="line">  &lt;/arr&gt;</div><div class="line">&lt;/requestHandler&gt;</div></pre></td></tr></table></figure></p>
+<p>Java代码(部分)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">SolrQuery params = new SolrQuery();  </div><div class="line">     params.set(<span class="string">"q"</span>, <span class="string">"*:*"</span>);  </div><div class="line">     params.set(<span class="string">"qt"</span>, <span class="string">"/terms"</span>);  </div><div class="line">     params.set(<span class="string">"terms"</span>, <span class="string">"true"</span>);  </div><div class="line">     params.set(<span class="string">"terms.fl"</span>, <span class="string">"product_name"</span>);  </div><div class="line">     params.set(<span class="string">"terms.regex"</span>, keywords+<span class="string">"+.*"</span>);  </div><div class="line">     params.set(<span class="string">"terms.regex.flag"</span>, <span class="string">"case_insensitive"</span>);  </div><div class="line">     params.set(<span class="string">"terms.sort"</span>, <span class="string">"count"</span>);//terms.sort=&#123;count|index&#125; -如果count，各种各样的条款术语的频率（最高计数第一）。 如果index，索引顺序返回条款。默认是count  </div><div class="line">     // 查询并获取相应的结果！  </div><div class="line">     QueryResponse response = solrserver.query(params);  </div><div class="line">     // 获取相关的查询结果  </div><div class="line">     List&lt;TermsResponse.Term&gt; termList=null;</div><div class="line">     <span class="keyword">if</span> (response != null) &#123; </div><div class="line">       TermsResponse termsResponse = response.getTermsResponse();  </div><div class="line">        <span class="keyword">if</span> (termsResponse != null) &#123;</div><div class="line">           Map&lt;String, List&lt;TermsResponse.Term&gt;&gt; termsMap = termsResponse.getTermMap();  </div><div class="line">             <span class="keyword">for</span> (Map.Entry&lt;String, List&lt;TermsResponse.Term&gt;&gt; termsEntry : termsMap.entrySet()) &#123;  </div><div class="line">             	// System.out.println(<span class="string">"Field Name: "</span> + termsEntry.getKey());  </div><div class="line">                 termList = termsEntry.getValue();  </div><div class="line">                 <span class="keyword">for</span> (TermsResponse.Term term : termList) &#123;  </div><div class="line">                     System.out.println(term.getTerm() + <span class="string">" : "</span>+ term.getFrequency());  </div><div class="line">                 &#125;  </div><div class="line">             &#125;  </div><div class="line">         &#125;  </div><div class="line">     &#125;</div></pre></td></tr></table></figure></p>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -196,16 +221,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/14/solr-terms/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/10/14/solr-terms/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2017/10/14/solr-suggest/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">solr-suggest</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -225,161 +309,14 @@
 
 
 
-
   
-    <article id="post-solr-suggest" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/14/solr-suggest/">solr-suggest</a>
-    </h1>
   
 
-        
-        <a href="/2017/10/14/solr-suggest/" class="archive-article-date">
-  	<time datetime="2017-10-14T08:31:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>配置 solrconfig.xml<br>在config标签中添加<br></p>
-        
-          <a class="article-more-a" href="/2017/10/14/solr-suggest/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">solr</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/14/solr-suggest/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-solr" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/14/solr/">solr定时增量导入mysql数据</a>
-    </h1>
   
 
-        
-        <a href="/2017/10/14/solr/" class="archive-article-date">
-  	<time datetime="2017-10-14T02:08:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>下载 solr-dataimportscheduler-1.1.jar 放到webapps\solr\WEB-INF\lib下</p>
-<p>在conf/solrconfig.xml中config标签中添加dataimport对应的requestHandler<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;requestHandler name=<span class="string">"/dataimport"</span> class=<span class="string">"org.apache.solr.handler.dataimport.DataImportHandler"</span>&gt;</div><div class="line">	&lt;lst name=<span class="string">"defaults"</span>&gt;</div><div class="line">		&lt;str name=<span class="string">"config"</span>&gt;data-config.xml&lt;/str&gt;</div><div class="line">	&lt;/lst&gt;</div><div class="line">&lt;/requestHandler&gt;</div></pre></td></tr></table></figure></p>
-        
-          <a class="article-more-a" href="/2017/10/14/solr/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">solr</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/14/solr/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
+
   
 
 
@@ -402,8 +339,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
